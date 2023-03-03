@@ -23,17 +23,23 @@ struct NoteListScreen: View {
     var body: some View {
         VStack {
             ZStack {
-                NavigationLink(destination: NoteDetailScreen(noteDataSource: self.noteDataSource, noteId: selectedNoteId), isActive: $isNoteSelected) {
-                    EmptyView()
-                }.hidden()
-                HideableSearchTextField<NoteDetailScreen>(onSearchToggled: {
-                    viewModel.toggleIsSearchActive()
-                }, destinationProvider: {
-                    NoteDetailScreen(
-                        noteDataSource: noteDataSource,
-                        noteId: selectedNoteId
-                    )
-                }, isSearchActive: viewModel.isSearchActive, searchText: $viewModel.searchText)
+                NavigationLink(
+                    destination: NoteDetailScreen(
+                        noteDataSource: self.noteDataSource,
+                        noteId: selectedNoteId),
+                    isActive: $isNoteSelected) {
+                        EmptyView()
+                    }.hidden()
+                
+                HideableSearchTextField<NoteDetailScreen>(
+                    onSearchToggled: { viewModel.toggleIsSearchActive() },
+                    destinationProvider: {
+                        NoteDetailScreen(noteDataSource: noteDataSource,
+                                         noteId: selectedNoteId)
+                    },
+                    isSearchActive: viewModel.isSearchActive,
+                    searchText: $viewModel.searchText
+                )
                 .frame(maxWidth: .infinity, minHeight: 40)
                 .padding()
                 
@@ -49,9 +55,8 @@ struct NoteListScreen: View {
                         isNoteSelected = true
                         selectedNoteId = note.id?.int64Value
                     }) {
-                        NoteItem(note: note, onDeleteClick: {
-                            viewModel.deleteNoteById(id: note.id?.int64Value)
-                        })
+                        NoteItem(note: note,
+                                 onDeleteClick: { viewModel.deleteNoteById(id: note.id?.int64Value)})
                     }
                 }
             }
@@ -69,6 +74,9 @@ struct NoteListScreen: View {
 
 struct NoteListScreen_Previews: PreviewProvider {
     static var previews: some View {
+//        NoteListScreen(
+//            noteDataSource: nil,
+//        )
         EmptyView()
     }
 }
