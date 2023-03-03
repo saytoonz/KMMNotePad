@@ -45,7 +45,10 @@ struct NoteItem: View {
 struct NoteItem_Previews: PreviewProvider {
     static var previews: some View {
         NoteItem(
-            note: Note(id: nil, title: "My note", content: "Note content", colorHex: 0xFF2341, created: DateTimeUtil().now()),
+            note: Note(id: nil, title: "My note",
+                       content: "Note content",
+                       colorHex: 0xFFFF2341,
+                       created: DateTimeUtil().now()),
             onDeleteClick: {}
         )
     }
